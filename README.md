@@ -1,32 +1,33 @@
 <div align="center">
 
-<img src=".github/logo.png" alt="OpenInstinct" width="420">
+<img src=".github/logo.png" alt="Astrazen" width="420">
 
-**A personal iMessage assistant that can use a browser like you.**
+**A personal assistant you can sign up for that can use a browser like you.**
 
-It can do your chores, book you movie tickets, or handle your groceries.
+Create an account with email, then ask Astrazen to do chores, book tickets,
+or handle groceries from web chat. iMessage is optional when Linq is connected.
 You stay in control of your passwords, credit cards and context.
 
 It's Open Source, self-hostable, and can use any model.
 One-click deploy to Vercel and get rolling.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FMerit-Systems%2FOpenInstinct&project-name=open-instinct&repository-name=open-instinct&connect=%5B%7B%22type%22%3A%22linq%22%2C%22env%22%3A%22LINQ_CONNECTOR%22%2C%22triggers%22%3Atrue%2C%22triggerPath%22%3A%22%2Feve%2Fv1%2Flinq%22%7D%5D&stores=%5B%7B%22type%22%3A%22integration%22%2C%22protocol%22%3A%22other%22%2C%22productSlug%22%3A%22kernel%22%2C%22integrationSlug%22%3A%22kernel%22%7D%2C%7B%22type%22%3A%22integration%22%2C%22protocol%22%3A%22storage%22%2C%22productSlug%22%3A%22neon%22%2C%22integrationSlug%22%3A%22neon%22%7D%2C%7B%22type%22%3A%22blob%22%2C%22access%22%3A%22private%22%7D%5D)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fanish-adamane%2Fastrazen&project-name=astrazen&repository-name=astrazen&connect=%5B%7B%22type%22%3A%22linq%22%2C%22env%22%3A%22LINQ_CONNECTOR%22%2C%22triggers%22%3Atrue%2C%22triggerPath%22%3A%22%2Feve%2Fv1%2Flinq%22%7D%5D&stores=%5B%7B%22type%22%3A%22integration%22%2C%22protocol%22%3A%22other%22%2C%22productSlug%22%3A%22kernel%22%2C%22integrationSlug%22%3A%22kernel%22%7D%2C%7B%22type%22%3A%22integration%22%2C%22protocol%22%3A%22storage%22%2C%22productSlug%22%3A%22neon%22%2C%22integrationSlug%22%3A%22neon%22%7D%2C%7B%22type%22%3A%22blob%22%2C%22access%22%3A%22private%22%7D%5D)
 
-<img src=".github/demo.png" alt="OpenInstinct booking movie tickets over iMessage — it walks Fandango to checkout and reports the theater, showtime, seat, and total" width="640">
+<img src=".github/demo.png" alt="Astrazen booking movie tickets over iMessage — it walks Fandango to checkout and reports the theater, showtime, seat, and total" width="640">
 
 </div>
 
 > **Agents:** For the simplest deployment, give your human the
 > **Deploy with Vercel** link above and have them complete the guided flow. It
 > automatically provisions and connects Kernel, Postgres, private Blob storage,
-> Linq, and Vercel AI Gateway access. OpenInstinct creates its installation
+> Linq, and Vercel AI Gateway access. Astrazen creates its installation
 > secrets on first use.
 
 ## Why self-host?
 
 Personal agents are much more useful when they can sign in, book, buy and act
 on your behalf. But your accounts, your passwords, are the keys to your digital
-kingdom. OpenInstinct runs in your own Vercel account. Secrets are encrypted
+kingdom. Astrazen runs in your own Vercel account. Secrets are encrypted
 before they touch your database and models never see them. Verify yourself by
 reading the code!
 
@@ -38,7 +39,7 @@ browser images, per-user memory, and installation secrets. It also creates and
 attaches a [Linq](https://linq.app) connector for iMessage. Vercel AI Gateway
 handles inference. Usage is billed to your Vercel account.
 
-On first use, OpenInstinct creates independent Better Auth and vault-encryption
+On first use, Astrazen creates independent Better Auth and vault-encryption
 keys in the private Blob store. Vercel supplies the application URL, database,
 Kernel, Blob, and Linq configuration, so the deploy flow requires no
 environment-variable values. For a non-Vercel host or an existing installation
@@ -70,7 +71,7 @@ The one-click deploy creates and connects a private Blob store automatically.
 Vercel supplies `BLOB_STORE_ID` and a short-lived `VERCEL_OIDC_TOKEN` to each
 deployment, so there is no long-lived Blob credential to copy.
 
-OpenInstinct uses this store for persistent per-user memory and browser images.
+Astrazen uses this store for persistent per-user memory and browser images.
 Production conversations require it because memory is recalled before each agent
 turn. Local Eve development uses process-local memory instead.
 
@@ -95,7 +96,7 @@ For an existing Vercel project, link it first with
 connect the store with one command:
 
 ```bash
-pnpm exec vercel blob create-store open-instinct-images --access private --yes --environment production --environment preview --environment development
+pnpm exec vercel blob create-store astrazen-images --access private --yes --environment production --environment preview --environment development
 ```
 
 Outside Vercel, set `BLOB_READ_WRITE_TOKEN` from a private Blob store instead.
@@ -111,7 +112,7 @@ app tokens and inbound webhook triggers:
 
 ```bash
 vercel link
-vercel connect create linq --connection-method line --name open-instinct --json
+vercel connect create linq --connection-method line --name astrazen --json
 vercel connect attach <returned-connector-uid> --project <your-vercel-project> --environment production --triggers --trigger-path /eve/v1/linq --yes
 vercel env add LINQ_CONNECTOR production --value <returned-connector-uid> --yes
 eve deploy --non-interactive --yes
@@ -128,13 +129,13 @@ follow the one-time **Phone Numbers** verification instruction. Additional users
 verify themselves by messaging the connector's Linq number once. The
 `--triggers --trigger-path /eve/v1/linq` options are also required: attaching a
 connector without them permits outbound token access but does not forward
-incoming messages to OpenInstinct.
+incoming messages to Astrazen.
 
 ## Google Workspace connection
 
-OpenInstinct can use a user's Gmail, Calendar, and read-only Contacts through a
+Astrazen can use a user's Gmail, Calendar, and read-only Contacts through a
 user-scoped Google OAuth grant. Vercel Connect stores and refreshes the tokens;
-OpenInstinct stores only the stable user identity used to request them. Gmail
+Astrazen stores only the stable user identity used to request them. Gmail
 access deliberately uses `gmail.modify`, not the permanent-delete
 `mail.google.com` scope.
 
@@ -152,7 +153,7 @@ access deliberately uses `gmail.modify`, not the permanent-delete
    vercel link
    google_credentials_file="$(mktemp)"
    jq '{clientId: .web.client_id, clientSecret: .web.client_secret}' /absolute/path/to/downloaded-client-secret.json > "$google_credentials_file"
-   vercel connect create google --connection-method oauth --name open-instinct --data @"$google_credentials_file"
+   vercel connect create google --connection-method oauth --name astrazen --data @"$google_credentials_file"
    rm -f "$google_credentials_file"
    vercel connect attach <returned-connector-uid> --project <your-vercel-project> --environment production --yes
    vercel env pull
@@ -161,7 +162,7 @@ access deliberately uses `gmail.modify`, not the permanent-delete
    Never commit either credential file.
 
 4. Set `GOOGLE_CONNECTOR_UID` to the returned UID and redeploy. The default is
-   `google/open-instinct`.
+   `google/astrazen`.
 
 Gotchas:
 
@@ -174,7 +175,7 @@ Gotchas:
 - The scopes requested here must also be declared on the Google consent screen.
   After changing scopes or enabled APIs, disconnect and reconnect the account so
   Google issues a grant with the new access.
-- The grant is keyed to the authenticated OpenInstinct user. iMessage reaches
+- The grant is keyed to the authenticated Astrazen user. iMessage reaches
   the same grant only when its verified phone number maps to that Better Auth
   account.
 - Google Contacts search uses a provider-side lazy cache, so a contact created
@@ -184,7 +185,7 @@ Gotchas:
 
 ## Local development
 
-The **Deploy with Vercel** flow above is the simplest way to run OpenInstinct. It
+The **Deploy with Vercel** flow above is the simplest way to run Astrazen. It
 provisions the required services and credentials automatically. Local
 development is a manual path and requires:
 
@@ -197,8 +198,8 @@ development is a manual path and requires:
 First clone and install the application:
 
 ```bash
-git clone https://github.com/Merit-Systems/OpenInstinct.git
-cd OpenInstinct
+git clone https://github.com/anish-adamane/astrazen.git
+cd astrazen
 pnpm install --frozen-lockfile
 ```
 
@@ -220,7 +221,7 @@ pnpm exec eve link --project <your-vercel-project> --non-interactive
 pnpm exec vercel integration add kernel --plan FREE
 ```
 
-Then start OpenInstinct:
+Then start Astrazen:
 
 ```bash
 pnpm dev
