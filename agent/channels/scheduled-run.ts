@@ -93,7 +93,7 @@ export default defineChannel({
                 workspaceId: claimed.job.workspaceId,
               },
               authenticator: "scheduled-input",
-              issuer: "open-instinct",
+              issuer: "astrazen",
               principalId: claimed.job.createdByUserId,
               principalType: "user",
             },

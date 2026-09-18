@@ -2,7 +2,7 @@ import { defineEvlogHook } from "evlog/eve";
 
 export default defineEvlogHook({
   init: {
-    env: { service: "open-instinct" },
+    env: { service: "astrazen" },
     redact: false,
   },
   message: "full",
